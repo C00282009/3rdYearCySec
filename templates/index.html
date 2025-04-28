@@ -1,0 +1,135 @@
+  <head>
+    <title>Network Scanning Tool</title>
+    <style>
+        body {
+            background: #16161d;
+            color: #e8e8e8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: rgba(34, 38, 49, 0.96);
+            border-radius: 18px;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.22);
+            padding: 40px 32px 32px 32px;
+        }
+        h1 {
+            color: #ADD8E6;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        label {
+            color: #ADD8E6;
+            font-weight: 500;
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+        }
+        input[type="text"] {
+            width: 99%;
+            padding: 10px 12px;
+            border: 1px solid #ADD8E6;
+            border-radius: 6px;
+            background: #23232b;
+            color: #e8e8e8;
+            margin-bottom: 16px;
+            font-size: 1em;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border: 1.5px solid #7CC1D7;
+            background: #23232b;
+        }
+        .radio-group {
+            margin-bottom: 20px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .radio-option input[type="radio"] {
+            accent-color: #ADD8E6;
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        .radio-option label {
+            margin: 0;
+            color: #e8e8e8;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        button {
+            width: 100%;
+            padding: 12px 0;
+            background: #ADD8E6;
+            color: #16161d;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #7CC1D7;
+            color: #23232b;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Network Scanning Tool</h1>
+      <form action="/process" method="post">
+        <label for="ip_address">Enter IP Address:</label>
+        <input type="text" id="ip_address" name="ip_address" required>
+
+        <label>Select Scan Type:</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" id="ping" name="scan_type" value="ping" checked>
+            <label for="ping">Ping Test</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="syn" name="scan_type" value="syn">
+            <label for="syn">SYN Scan</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="udp" name="scan_type" value="udp">
+            <label for="udp">UDP Scan</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="version" name="scan_type" value="version">
+            <label for="version">Version Detection Scan</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="os_detection" name="scan_type"
+              value="os_detection">
+            <label for="os_detection">OS Detection Scan</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="aggressive" name="scan_type"
+              value="aggressive">
+            <label for="aggressive">Aggressive Scan</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="vuln" name="scan_type" value="vuln">
+            <label for="vuln">Vulnerability Scan</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="vuln_cve" name="scan_type" value="vuln_cve">
+            <label for="vuln_cve">CVE-Only Vulnerability Scan</label>
+          </div>
+        </div>
+        <button type="submit">Run Scan</button>
+      </form>
+    </div>
+  </body>
+</html>

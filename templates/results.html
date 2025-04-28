@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scan Results</title>
+        <style>
+        body {
+            background: #16161d;
+            color: #e8e8e8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(34, 38, 49, 0.96);
+            border-radius: 18px;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.22);
+            padding: 40px 32px 32px 32px;
+        }
+        h2 {
+            color: #ADD8E6;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .summary {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #23232b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
+        th, td {
+            border: 1px solid #2d2d34;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: #23232b;
+            color: #ADD8E6;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #1e1e25;
+        }
+        tr:nth-child(odd) {
+            background: #23232b;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #ADD8E6;
+            border: 1px solid #ADD8E6;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s, color 0.2s;
+        }
+        .back-link:hover {
+            background: #ADD8E6;
+            color: #16161d;
+        }
+        .error {
+            color: #ff6868;
+            font-weight: bold;
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            .container { padding: 18px 2vw; }
+            table, th, td { font-size: 0.95em; }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Scan Results</h2>
+            <div class="summary">
+                <strong>Scan Type:</strong> {{ scan_type }}<br>
+                <strong>IP Address:</strong> {{ ip_addr }}
+            </div>
+            {% if scan_type == "Ping Test" %}
+            <table>
+                <tr>
+                    <th>Status</th>
+                </tr>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <table>
+                <tr>
+                    <th>Port</th>
+                    <th>Protocol</th>
+                    <th>Service</th>
+                    {% if scan_type == "Version Detection Scan" or scan_type ==
+                    "Aggressive Scan" %}
+                    <th>Version</th>
+                    {% endif %}
+                    {% if scan_type == "OS Detection Scan" %}
+                    <th>Accuracy</th>
+                    {% endif %}
+                    {% if scan_type == "Vulnerability Scan" or scan_type ==
+                    "CVE-Specific Scan" %}
+                    <th>Details</th>
+                    {% endif %}
+                </tr>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.port }}</td>
+                    <td>{{ result.protocol }}</td>
+                    <td>{{ result.service }}</td>
+                    {% if scan_type == "Version Detection Scan" or scan_type ==
+                    "Aggressive Scan" %}
+                    <td>{{ result.version }}</td>
+                    {% endif %}
+                    {% if scan_type == "OS Detection Scan" %}
+                    <td>{{ result.accuracy }}</td>
+                    {% endif %}
+                    {% if scan_type == "Vulnerability Scan" or scan_type ==
+                    "CVE-Specific Scan" %}
+                    <td>
+                        {% if result.details is string %}
+                        {{ result.details }}
+                        {% else %}
+                        {{ result.details|safe }}
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+            <a href="/" class="back-link">Back to Home</a>
+        </div>
+    </body>
+</html>
