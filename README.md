@@ -13,7 +13,7 @@ o	templates/index.html
 o templates/results.html
 
 # Setup:
-Once python and nmap has been installed  links, The next step will be to install the required modules so that the tool will be able to function as intended.
+Once python and nmap has been installed, The next step will be to install the required modules so that the tool will be able to function as intended.
 
 The modules are:
 
